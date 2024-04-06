@@ -1,9 +1,9 @@
-<h2>{{ region.name }}</h2>
+<h2>{{ area.name }}</h2>
 
 <mat-divider />
 
 <div class="checks">
-    @for (check of region.checks; track check.name) {
+    @for (check of area.checks; track check.name) {
         <mat-checkbox
             [checked]="check.checked()"
             (change)="check.checked.set($event.checked)"

@@ -1,8 +1,8 @@
 import {Check} from './check';
 
-export class Region {
+export class Area {
     constructor(
         public readonly name: string,
-        public readonly checks: readonly Check[]
+        public readonly checks: readonly Check[],
     ) {}
 }

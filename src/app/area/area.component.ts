@@ -1,15 +1,15 @@
 import {Component, Input} from '@angular/core';
-import {Region} from '../../model/region';
+import {Area} from '../../model/area';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
-    selector: 'bridge-region',
+    selector: 'bridge-area',
     standalone: true,
     imports: [MatCheckboxModule, MatDividerModule],
-    templateUrl: './region.component.html',
-    styleUrl: './region.component.less',
+    templateUrl: './area.component.html',
+    styleUrl: './area.component.less',
 })
-export class RegionComponent {
-    @Input({required: true}) public region!: Region;
+export class AreaComponent {
+    @Input({required: true}) public area!: Area;
 }
