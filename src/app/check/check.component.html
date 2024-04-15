@@ -1,0 +1,33 @@
+<mat-checkbox
+    [checked]="check.checked()"
+    (change)="check.checked.set($event.checked)"
+    [style.opacity]="check.available() ? 1 : 0.4"
+>
+    <span [class.checked]="check.checked()">{{ check.name }}</span>
+</mat-checkbox>
+
+<div style="position: relative">
+    <button
+        #itemCombobox
+        type="button"
+        aria-haspopup="true"
+        [attr.aria-pressed]="showPopup()"
+        (click)="onComboboxClick()"
+        (contextmenu)="onComboboxRightClick($event)"
+    >
+        {{ check.item()?.name ?? '...' }}
+    </button>
+
+    @if (showPopup()) {
+        <datalist #itemListbox>
+            @for (item of items; track item) {
+                <option
+                    [attr.aria-selected]="item === check.item()"
+                    (click)="select(item)"
+                >
+                    {{ item.name }}
+                </option>
+            }
+        </datalist>
+    }
+</div>

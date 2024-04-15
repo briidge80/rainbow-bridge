@@ -1,3 +1,5 @@
 <main>
-    <bridge-area [area]="area"></bridge-area>
+    @for (area of world.areas; track area.name) {
+        <bridge-area [area]="area"></bridge-area>
+    }
 </main>

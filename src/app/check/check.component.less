@@ -1,0 +1,90 @@
+:host {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checked {
+    text-decoration: line-through;
+    opacity: 60%;
+}
+
+input {
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    height: 24px;
+
+    &::placeholder {
+        color: #aaaaaa;
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+button {
+    display: flex;
+    box-sizing: border-box;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 4px;
+    padding: 0px 8px;
+
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #eeeeee;
+    }
+
+    &:active {
+        background-color: #dddddd;
+    }
+
+    &[aria-pressed='true'] {
+        background-color: #dddddd;
+    }
+
+    &:focus-visible {
+        outline: 1px solid pink;
+        outline-width: 2px;
+        outline-offset: 1px;
+    }
+}
+
+datalist {
+    position: absolute;
+    display: grid;
+    z-index: 1;
+
+    border-radius: 4px;
+    padding: 4px;
+
+    box-shadow: 1px 1px 5px #999999;
+    background-color: white;
+
+    grid-template-columns: auto auto auto;
+    gap: 8px;
+
+    option {
+        border-radius: 4px;
+        padding: 4px 8px;
+
+        &[aria-selected='true'] {
+            background-color: #dddddd;
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: #eeeeee;
+        }
+
+        &:active {
+            cursor: pointer;
+            background-color: #dddddd;
+        }
+    }
+}

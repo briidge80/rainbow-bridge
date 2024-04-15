@@ -6,8 +6,33 @@
     border: 1px solid var(--mat-divider-color);
 }
 
-h2 {
+.heading {
     padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.available {
+    display: flex;
+    box-sizing: border-box;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 10px;
+    padding: 0px 6px;
+    font-weight: 500;
+
+    line-height: 24px;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+
+    background-color: green;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
     margin: 0px;
 }
 
@@ -15,9 +40,4 @@ h2 {
     display: flex;
     flex-direction: column;
     padding: 8px 16px 8px 8px;
-}
-
-.checked {
-    text-decoration: line-through;
-    opacity: 60%;
 }
