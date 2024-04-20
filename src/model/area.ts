@@ -13,6 +13,6 @@ export class Area {
     ) {}
 
     public readonly availableChecks = computed((): ReadonlyArray<Check> => {
-        return this.checks.filter((check) => check.available());
+        return this.checks.filter((check) => check.available() && !check.checked());
     });
 }
