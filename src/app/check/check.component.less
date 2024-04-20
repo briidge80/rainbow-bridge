@@ -24,11 +24,11 @@ input {
     }
 }
 
-button {
+button[role='combobox'] {
     display: flex;
     box-sizing: border-box;
-    height: 32px;
-    min-width: 32px;
+    height: 40px;
+    width: 40px;
     border-radius: 4px;
     padding: 0px 8px;
 
@@ -57,7 +57,6 @@ button {
 
 datalist {
     position: absolute;
-    display: grid;
     z-index: 1;
 
     border-radius: 4px;
@@ -67,24 +66,28 @@ datalist {
     background-color: white;
 
     grid-template-columns: auto auto auto;
-    gap: 8px;
 
-    option {
+    [role='option'] {
+        display: flex;
+        width: 40px;
+        height: 40px;
         border-radius: 4px;
-        padding: 4px 8px;
+
+        justify-content: center;
+        align-items: center;
 
         &[aria-selected='true'] {
-            background-color: #dddddd;
+            background-color: #bbbbbb;
         }
 
         &:hover {
             cursor: pointer;
-            background-color: #eeeeee;
+            background-color: #dddddd;
         }
 
         &:active {
             cursor: pointer;
-            background-color: #dddddd;
+            background-color: #bbbbbb;
         }
     }
 }

@@ -1,3 +1,21 @@
+<section class="inventory">
+    <h2>Inventory</h2>
+    <mat-divider />
+    <div class="items">
+        @for (item of world.allItems; track item) {
+            <div
+                role="option"
+                [attr.title]="item.name"
+            >
+                <img
+                    [attr.src]="item.inventoryImage()"
+                    [attr.alt]="item.name"
+                    [style.opacity]="item.has() ? 1 : 0.4"
+                />
+            </div>
+        }
+    </div>
+</section>
 <main>
     @for (area of world.areas; track area.name) {
         <bridge-area [area]="area"></bridge-area>

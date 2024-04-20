@@ -15,8 +15,6 @@ import {Item} from '../../model/item';
 export class CheckComponent implements OnDestroy {
     @Input({required: true}) public check!: Check;
 
-    protected readonly items = Item.allItems;
-
     protected readonly showPopup = signal<boolean>(false);
 
     @ViewChild('itemCombobox', {read: ElementRef})

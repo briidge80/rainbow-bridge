@@ -10,24 +10,38 @@
     <button
         #itemCombobox
         type="button"
+        role="combobox"
         aria-haspopup="true"
         [attr.aria-pressed]="showPopup()"
         (click)="onComboboxClick()"
         (contextmenu)="onComboboxRightClick($event)"
     >
-        {{ check.item()?.name ?? '...' }}
+        @if (check.item(); as item) {
+            <img
+                [attr.src]="item.images[0]"
+                [attr.alt]="item.name"
+            />
+        } @else {
+            ...
+        }
     </button>
 
-    @if (showPopup()) {
-        <datalist #itemListbox>
-            @for (item of items; track item) {
-                <option
-                    [attr.aria-selected]="item === check.item()"
-                    (click)="select(item)"
-                >
-                    {{ item.name }}
-                </option>
-            }
-        </datalist>
-    }
+    <datalist
+        #itemListbox
+        [style.display]="showPopup() ? 'grid' : 'none'"
+    >
+        @for (item of world.allItems; track item) {
+            <div
+                role="option"
+                [attr.aria-selected]="item === check.item()"
+                (click)="select(item)"
+                [attr.title]="item.name"
+            >
+                <img
+                    [attr.src]="item.images[0]"
+                    [attr.alt]="item.name"
+                />
+            </div>
+        }
+    </datalist>
 </div>
