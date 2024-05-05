@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, input} from '@angular/core';
 import {Area} from '../../model/area';
 import {MatDividerModule} from '@angular/material/divider';
 import {CheckComponent} from '../check/check.component';
+import {World} from '../../model/world';
 
 @Component({
     selector: 'bridge-area',
@@ -11,5 +12,7 @@ import {CheckComponent} from '../check/check.component';
     styleUrl: './area.component.less',
 })
 export class AreaComponent {
-    @Input({required: true}) public area!: Area;
+    public readonly area = input.required<Area>();
+
+    constructor(protected readonly world: World) {}
 }

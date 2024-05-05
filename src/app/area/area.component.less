@@ -13,12 +13,20 @@
     justify-content: space-between;
 }
 
+.stats {
+    width: 64px;
+    display: flex;
+    justify-content: flex-end;
+    user-select: none;
+}
+
 .available {
     display: flex;
     box-sizing: border-box;
     height: 24px;
     min-width: 24px;
     border-radius: 10px;
+    margin-left: 8px;
     padding: 0px 6px;
     font-weight: 500;
 
@@ -26,10 +34,22 @@
     font-size: 16px;
     font-variant-numeric: tabular-nums;
 
-    background-color: green;
     color: white;
     justify-content: center;
     align-items: center;
+    text-shadow: 1px 1px 3px black;
+
+    &.items {
+        background-color: green;
+    }
+
+    &.songs {
+        background-color: #f9d73a;
+    }
+
+    span {
+        margin-bottom: -1px; // looks better idk
+    }
 }
 
 h2 {

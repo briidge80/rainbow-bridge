@@ -1,5 +1,6 @@
 import {Signal, computed} from '@angular/core';
 import {Check} from './check';
+import {Pool} from './world';
 
 const sphere0 = computed(() => true);
 
@@ -14,10 +15,10 @@ export class Area {
         public readonly requirements: Signal<boolean> = sphere0,
     ) {}
 
-    public readonly availableChecks = computed((): ReadonlyArray<Check> => {
+    public availableChecks(pool: Pool): number {
         if (!this.requirements()) {
-            return [];
+            return 0;
         }
-        return this.checks.filter((check) => check.available() && !check.checked());
-    });
+        return this.checks.filter((check) => check.pool === pool && check.available() && !check.checked()).length;
+    }
 }

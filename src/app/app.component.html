@@ -1,8 +1,8 @@
 <section class="inventory">
     <h2>Inventory</h2>
     <mat-divider />
-    <div class="items">
-        @for (item of world.allItems; track item) {
+    <div class="pool">
+        @for (item of world.items; track item) {
             <div
                 role="option"
                 [attr.title]="item.name"
@@ -11,6 +11,20 @@
                     [attr.src]="item.inventoryImage()"
                     [attr.alt]="item.name"
                     [style.opacity]="item.has() ? 1 : 0.4"
+                />
+            </div>
+        }
+    </div>
+    <div class="pool">
+        @for (song of world.songs; track song) {
+            <div
+                role="option"
+                [attr.title]="song.name"
+            >
+                <img
+                    [attr.src]="song.inventoryImage()"
+                    [attr.alt]="song.name"
+                    [style.opacity]="song.has() ? 1 : 0.4"
                 />
             </div>
         }

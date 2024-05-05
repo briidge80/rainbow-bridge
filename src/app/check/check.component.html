@@ -18,7 +18,7 @@
     >
         @if (check.item(); as item) {
             <img
-                [attr.src]="item.images[0]"
+                [attr.src]="item.checkImage"
                 [attr.alt]="item.name"
             />
         } @else {
@@ -30,16 +30,16 @@
         #itemListbox
         [style.display]="showPopup() ? 'grid' : 'none'"
     >
-        @for (item of world.allItems; track item) {
+        @for (obtainable of check.pool; track obtainable) {
             <div
                 role="option"
-                [attr.aria-selected]="item === check.item()"
-                (click)="select(item)"
-                [attr.title]="item.name"
+                [attr.aria-selected]="obtainable === check.item()"
+                (click)="select(obtainable)"
+                [attr.title]="obtainable.name"
             >
                 <img
-                    [attr.src]="item.images[0]"
-                    [attr.alt]="item.name"
+                    [attr.src]="obtainable.checkImage"
+                    [attr.alt]="obtainable.name"
                 />
             </div>
         }

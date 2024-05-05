@@ -1,7 +1,16 @@
 <div class="heading">
     <h2>{{ area().name }}</h2>
-    <div class="available">
-        <span>{{ area().availableChecks().length }}</span>
+    <div class="stats">
+        @if (area().availableChecks(world.songs); as count) {
+            <div class="available songs">
+                <span>{{ count }}</span>
+            </div>
+        }
+        @if (area().availableChecks(world.items); as count) {
+            <div class="available items">
+                <span>{{ count }}</span>
+            </div>
+        }
     </div>
 </div>
 

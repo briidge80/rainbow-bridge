@@ -2,22 +2,29 @@ import {Check} from './check';
 import {Area} from './area';
 import {Item} from './item';
 import {Injectable, Signal, computed} from '@angular/core';
+import {Song} from './song';
+
+export interface Obtainable {
+    readonly name: string;
+    readonly checkImage: string;
+}
+
+export type Pool = ReadonlyArray<Obtainable>;
 
 @Injectable({providedIn: 'root'})
 export class World {
-    public readonly allItems: Item[] = [];
+    public readonly items: Item[] = [];
+    public readonly songs: Song[] = [];
 
-    constructor() {
-        this.allItems = this.allItems.sort((a, b) => a.name.localeCompare(b.name));
+    private _has(item: Obtainable, count: number = 1): boolean {
+        return this.allChecks.filter((check) => check.item() === item && check.checked()).length >= count;
     }
 
-    private has(item: Item, count: number = 1): Signal<boolean> {
-        return computed(
-            (): boolean => this.allChecks.filter((check) => check.item() === item && check.checked()).length >= count,
-        );
+    private has(item: Obtainable, count: number = 1): Signal<boolean> {
+        return computed((): boolean => this._has(item, count));
     }
 
-    public count(item: Item): number {
+    public count(item: Obtainable): number {
         return this.allChecks.filter((check) => check.item() === item && check.checked()).length;
     }
 
@@ -48,39 +55,78 @@ export class World {
         '/assets/golden-gauntlets.png',
     ]);
 
+    // TODO images for songs
+    public readonly SariasSong = new Song(this, "Saria's Song", '/assets/bomb-bag.png');
+    public readonly MinuetOfForest = new Song(this, 'Minuet of Forest', '/assets/bomb-bag.png');
+    public readonly PreludeOfLight = new Song(this, 'Prelude of Light', '/assets/bomb-bag.png');
+
+    // Must be created after all the obtainables, but before all the checks.
+    // Otherwise, the check might not be able to find the item from localstorage
+    // and will clean the localstorage for that check because it assumes it is the default value.
+    // This could probably be refactored to be less fragile.
+    public readonly allObtainables: readonly Obtainable[] = [...this.items, ...this.songs];
+
+    // TODO medallions
+
+    private readonly Requirements = {
+        SacredForestMeadowAdultAccess: computed(() => this._has(this.SariasSong) || this._has(this.MinuetOfForest)),
+    };
     public readonly areas: ReadonlyArray<Area> = [
         new Area('Kokiri Forest', [
-            new Check(this, 'Midos Top Left Chest'),
-            new Check(this, 'Midos Top Right Chest'),
-            new Check(this, 'Midos Bottom Left Chest'),
-            new Check(this, 'Midos Bottom Right Chest'),
-            new Check(this, 'Kokiri Sword Chest'),
-            new Check(this, 'Storms Grotto Chest'),
-            new Check(this, 'Outside Storms Hint'),
-            new Check(this, 'Storms Grotto Hint'),
+            new Check(this, 'Midos Top Left Chest', this.items),
+            new Check(this, 'Midos Top Right Chest', this.items),
+            new Check(this, 'Midos Bottom Left Chest', this.items),
+            new Check(this, 'Midos Bottom Right Chest', this.items),
+            new Check(this, 'Kokiri Sword Chest', this.items),
+            new Check(this, 'Storms Grotto Chest', this.items),
+            new Check(this, 'Outside Storms Hint', this.items),
+            new Check(this, 'Storms Grotto Hint', this.items),
         ]),
         new Area(
             'Deku Tree',
             [
-                new Check(this, 'Map Chest'),
-                new Check(this, 'Slingshot Room Side Chest'),
-                new Check(this, 'Slingshot Chest'),
-                new Check(this, 'Compass Chest'),
-                new Check(this, 'Compass Room Side Chest'),
-                new Check(this, 'Basement Chest'),
-                new Check(this, 'Queen Gohma Heart'),
+                new Check(this, 'Map Chest', this.items),
+                new Check(this, 'Slingshot Room Side Chest', this.items),
+                new Check(this, 'Slingshot Chest', this.items),
+                new Check(this, 'Compass Chest', this.items),
+                new Check(this, 'Compass Room Side Chest', this.items),
+                new Check(this, 'Basement Chest', this.items),
+                new Check(this, 'Queen Gohma Heart', this.items),
             ],
             this.has(this.KokiriSword),
         ),
         new Area('Lost Woods', [
-            new Check(this, 'Ocarina Memory Game'),
-            new Check(this, 'Target in Woods', this.has(this.Slingshot)),
-            new Check(this, 'Near Shortcuts Grotto Chest', this.has(this.BombBag)),
-            new Check(this, 'Deku Theater Skull Mask'),
-            new Check(this, 'Deku Theater Mask of Truth'),
-            new Check(this, 'Skull Kid' /*, Saria's song*/),
-            new Check(this, 'Deku Scrub Near Bridge'),
-            new Check(this, 'Deku Scrub Grotto Front', this.has(this.BombBag)),
+            new Check(this, 'Ocarina Memory Game', this.items),
+            new Check(this, 'Target in Woods', this.items, this.has(this.Slingshot)),
+            new Check(this, 'Near Shortcuts Grotto Chest', this.items, this.has(this.BombBag)),
+            new Check(this, 'Deku Theater Skull Mask', this.items),
+            new Check(this, 'Deku Theater Mask of Truth', this.items),
+            new Check(this, 'Skull Kid', this.items /*, Saria's song*/),
+            new Check(this, 'Deku Scrub Near Bridge', this.items),
+            new Check(
+                this,
+                'Deku Scrub Grotto Front',
+                this.items,
+                computed(
+                    () =>
+                        this._has(this.BombBag) ||
+                        (this._has(this.MegatonHammer) && this.Requirements.SacredForestMeadowAdultAccess()),
+                ),
+            ),
+        ]),
+        new Area('Sacred Forest Meadow', [
+            new Check(
+                this,
+                "Wolfo's Grotto",
+                this.items,
+                computed(
+                    () =>
+                        this._has(this.BombBag) ||
+                        (this._has(this.MegatonHammer) && this.Requirements.SacredForestMeadowAdultAccess()),
+                ),
+            ),
+            new Check(this, 'Song from Saria', this.songs),
+            new Check(this, 'Sheik in Forest', this.songs, this.Requirements.SacredForestMeadowAdultAccess),
         ]),
     ];
 

@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {Check} from '../../model/check';
-import {World} from '../../model/world';
+import {Obtainable, World} from '../../model/world';
 import {Item} from '../../model/item';
 import {AreaComponent} from '../area/area.component';
 import {Area} from '../../model/area';
@@ -100,7 +100,7 @@ export class CheckComponent implements OnDestroy {
         this.check.item.set(undefined);
     }
 
-    protected select(item: Item): void {
+    protected select(item: Obtainable): void {
         this.check.item.set(this.check.item() === item ? undefined : item);
         this.showPopup.set(false);
     }
