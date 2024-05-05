@@ -1,8 +1,19 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, ViewChild, signal} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    Input,
+    OnDestroy,
+    Signal,
+    ViewChild,
+    signal,
+} from '@angular/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {Check} from '../../model/check';
 import {World} from '../../model/world';
 import {Item} from '../../model/item';
+import {AreaComponent} from '../area/area.component';
+import {Area} from '../../model/area';
 
 @Component({
     selector: 'bridge-check',
@@ -51,10 +62,15 @@ export class CheckComponent implements OnDestroy {
         }
     }
 
+    protected readonly area: Signal<Area>;
+
     constructor(
         protected readonly world: World,
         private readonly elementRef: ElementRef<HTMLElement>,
-    ) {}
+        areaComponent: AreaComponent,
+    ) {
+        this.area = areaComponent.area;
+    }
 
     public ngOnDestroy(): void {
         window.removeEventListener('click', this.closeOnOutsideClick);

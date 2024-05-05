@@ -1,14 +1,14 @@
 <div class="heading">
-    <h2>{{ area.name }}</h2>
+    <h2>{{ area().name }}</h2>
     <div class="available">
-        <span>{{ area.availableChecks().length }}</span>
+        <span>{{ area().availableChecks().length }}</span>
     </div>
 </div>
 
 <mat-divider />
 
 <div class="checks">
-    @for (check of area.checks; track check.name) {
+    @for (check of area().checks; track check.name) {
         <bridge-check [check]="check"></bridge-check>
     }
 </div>
