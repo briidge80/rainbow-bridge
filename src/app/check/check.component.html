@@ -22,7 +22,13 @@
                 [attr.alt]="item.name"
             />
         } @else {
-            ...
+            <div
+                role="img"
+                class="unchecked"
+                [class.song]="isSong()"
+            >
+                ...
+            </div>
         }
     </button>
 

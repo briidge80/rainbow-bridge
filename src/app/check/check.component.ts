@@ -90,6 +90,10 @@ export class CheckComponent implements OnDestroy {
         }
     };
 
+    protected isSong(): boolean {
+        return this.check.pool === this.world.songs;
+    }
+
     protected onComboboxClick(): void {
         this.showPopup.update((value) => !value);
     }

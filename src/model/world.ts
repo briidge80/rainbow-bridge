@@ -55,10 +55,21 @@ export class World {
         '/assets/golden-gauntlets.png',
     ]);
 
-    // TODO images for songs
-    public readonly SariasSong = new Song(this, "Saria's Song", '/assets/bomb-bag.png');
-    public readonly MinuetOfForest = new Song(this, 'Minuet of Forest', '/assets/bomb-bag.png');
-    public readonly PreludeOfLight = new Song(this, 'Prelude of Light', '/assets/bomb-bag.png');
+    // Child songs
+    public readonly ZeldasLullaby = new Song(this, "Zelda's Lullaby", '/assets/zeldas-lullaby.png');
+    public readonly EponasSong = new Song(this, "Epona's Song", '/assets/eponas-song.png');
+    public readonly SariasSong = new Song(this, "Saria's Song", '/assets/sarias-song.png');
+    public readonly SunsSong = new Song(this, "Sun's Song", '/assets/suns-song.png');
+    public readonly SongOfTime = new Song(this, 'Song of Time', '/assets/song-of-time.png');
+    public readonly SongOfStorms = new Song(this, 'Song of Storms', '/assets/song-of-storms.png');
+
+    // Warp songs
+    public readonly MinuetOfForest = new Song(this, 'Minuet of Forest', '/assets/minuet-of-forest.png');
+    public readonly BoleroOfFire = new Song(this, 'Bolero of Fire', '/assets/bolero-of-fire.png');
+    public readonly SerenadeOfWater = new Song(this, 'Serenade of Water', '/assets/serenade-of-water.png');
+    public readonly RequiemOfSpirit = new Song(this, 'Requiem of Spirit', '/assets/requiem-of-spirit.png');
+    public readonly NoctureOfShadow = new Song(this, 'Nocturne of Shadow', '/assets/nocturne-of-shadow.png');
+    public readonly PreludeOfLight = new Song(this, 'Prelude of Light', '/assets/prelude-of-light.png');
 
     // Must be created after all the obtainables, but before all the checks.
     // Otherwise, the check might not be able to find the item from localstorage

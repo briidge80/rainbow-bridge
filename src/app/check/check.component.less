@@ -27,10 +27,8 @@ input {
 button[role='combobox'] {
     display: flex;
     box-sizing: border-box;
-    height: 40px;
-    width: 40px;
     border-radius: 4px;
-    padding: 0px 8px;
+    padding: 4px;
 
     user-select: none;
 
@@ -57,6 +55,19 @@ button[role='combobox'] {
     }
 }
 
+.unchecked {
+    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
+    padding-top: 3px; // this centers the dots on my machine ...but we should probably make an asset for this
+    text-align: center;
+
+    &.song {
+        width: 64px;
+        height: 36px;
+    }
+}
+
 datalist {
     position: absolute;
     z-index: 1;
@@ -71,8 +82,7 @@ datalist {
 
     [role='option'] {
         display: flex;
-        width: 40px;
-        height: 40px;
+        padding: 4px;
         border-radius: 4px;
 
         justify-content: center;
